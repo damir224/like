@@ -60,7 +60,9 @@ export default React.memo(({ flat }) => {
                   <span className='flex items-center'>
                     <i className='far fa-address-card fa-fw text-gray-900 mr-2' />
                     {flat.relationships.attributes.middle_name}
+                    &nbsp;
                     {flat.relationships.attributes.first_name}
+                    &nbsp;
                     {flat.relationships.attributes.last_name}
                   </span>
                 </div>
