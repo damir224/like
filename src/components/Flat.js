@@ -1,12 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Like from './Like';
-import { useDispatch, useSelector } from 'react-redux';
 import { likeFlatAC } from '../store/actions';
-export default function Flat({ flat }) {
-  const a = useSelector((state) => state);
-  console.log('a', a);
+
+export default React.memo(({ flat }) => {
   const dispatch = useDispatch();
-  console.log('flat', flat.like);
   return (
     <div>
       <div className='antialiased text-gray-900 font-sans p-6'>
@@ -26,35 +24,43 @@ export default function Flat({ flat }) {
                     {flat.attributes.title}
                   </h2>
                   <p className='text-sm'>
-                    <p className='font-semibold'>Адрес: </p>г.
-                    {flat.attributes.address.city}, ул.
-                    {flat.attributes.address.street}, д.
-                    {flat.attributes.address.house}, кв.
+                    <span className='font-semibold'>Адрес: </span>
+                    г.
+                    {flat.attributes.address.city}
+                    , ул.
+                    {flat.attributes.address.street}
+                    , д.
+                    {flat.attributes.address.house}
+                    , кв.
                     {flat.attributes.address.room}
                   </p>
                   <p className='text-sm'>
-                    <p className='font-semibold'>Колличество комнат: </p>
+                    <span className='font-semibold'>Колличество комнат: </span>
                     {flat.attributes.rooms}
                   </p>
                   <p className='text-sm'>
-                    <p className='font-semibold'>Площадь: </p>
-                    {flat.attributes.area + ' '} {flat.attributes.unit}
+                    <span className='font-semibold'>Площадь: </span>
+                    {flat.attributes.area}
+                    &nbsp;
+                    {flat.attributes.unit}
                   </p>
                   <div className='mt-3 flex items-center'>
-                    <span className='text-sm font-semibold'>Цена:</span>&nbsp;
-                    <span className='font-bold text-xl'>4,550,000</span>&nbsp;
+                    <span className='text-sm font-semibold'>Цена:</span>
+                    &nbsp;
+                    <span className='font-bold text-xl'>4,550,000</span>
+                    &nbsp;
                     <span className='text-sm font-semibold'>₽</span>
                   </div>
                 </div>
                 <div className='p-4 border-t border-b text-xs text-gray-700'>
                   <span className='flex items-center mb-1'>
-                    <i className='far fa-clock fa-fw mr-2 text-gray-900'></i>{' '}
+                    <i className='far fa-clock fa-fw mr-2 text-gray-900' />
                     Контакты:
                   </span>
                   <span className='flex items-center'>
-                    <i className='far fa-address-card fa-fw text-gray-900 mr-2'></i>
-                    {flat.relationships.attributes.middle_name}{' '}
-                    {flat.relationships.attributes.first_name}{' '}
+                    <i className='far fa-address-card fa-fw text-gray-900 mr-2' />
+                    {flat.relationships.attributes.middle_name}
+                    {flat.relationships.attributes.first_name}
                     {flat.relationships.attributes.last_name}
                   </span>
                 </div>
@@ -79,11 +85,9 @@ export default function Flat({ flat }) {
                     type='button'
                     onClick={(event) => {
                       event.preventDefault();
-                      console.log('like');
                       dispatch(likeFlatAC({ id: flat.id }));
                     }}
                   >
-                    {/* <Like like={{ liked, total_likes }} /> */}
                     <div className='flex items-center text-sm text-gray-600'>
                       <Like
                         like={{ like: flat.like, totalLike: flat.totalLike }}
@@ -98,4 +102,5 @@ export default function Flat({ flat }) {
       </div>
     </div>
   );
-}
+},
+)

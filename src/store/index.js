@@ -2,6 +2,7 @@ import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import actionTypes from './actionTypes';
 import entities from '../helpers/entities';
+
 const initialState = {
   flats: [],
 };
@@ -11,7 +12,7 @@ const cardsReducers = (state = initialState, action) => {
       return {
         ...state,
         flats: entities.response.map((e) => {
-          const city = e.attributes.address.city;
+          const { city } = e.attributes.address;
           if (city === 'Tyumen') {
             e.attributes.address.city = 'Тюмень';
             return e;
@@ -21,7 +22,6 @@ const cardsReducers = (state = initialState, action) => {
         }),
       };
     case actionTypes.LIKE_FLAT:
-      console.log(action.payload);
       return {
         ...state,
         flats: { ...state }.flats.map((e) => {

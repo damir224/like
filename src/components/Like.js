@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Like({ like }) {
-  console.log(like);
   return (
     <>
       {like.like ? (
